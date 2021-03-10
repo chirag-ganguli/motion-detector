@@ -6,9 +6,9 @@ static_back = None
 video = cv2.VideoCapture(0) 
 
 while True: 
-    check, frame = video.read() 
+    get, canvas = video.read() 
     motion = 0
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) 
+    gray = cv2.cvtColor(canvas, cv2.COLOR_BGR2GRAY) 
     gray = cv2.GaussianBlur(gray, (21, 21), 0) 
 
     if static_back is None: 
@@ -26,8 +26,8 @@ while True:
             continue
         motion = 1
         (x, y, z, h) = cv2.boundingRect(contour) 
-        cv2.rectangle(frame, (x, y), (x + z, y + h), (0, 300, 0), 5) 
-    cv2.imshow("Motion Detector", frame) 
+        cv2.rectangle(canvas, (x, y), (x + z, y + h), (0, 300, 0), 5) 
+    cv2.imshow("Motion Detector", canvas) 
     key = cv2.waitKey(1) 
   
 video.release() 
