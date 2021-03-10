@@ -14,11 +14,11 @@ while True:
     if static_back is None: 
         static_back = gray 
         continue
-    diff_frame = cv2.absdiff(static_back, gray) 
-    thresh_frame = cv2.threshold(diff_frame, 30, 255, cv2.THRESH_BINARY)[1] 
-    thresh_frame = cv2.dilate(thresh_frame, None, iterations = 2) 
+    diff = cv2.absdiff(static_back, gray) 
+    threshold = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)[1] 
+    threshold = cv2.dilate(threshold, None, iterations = 2) 
 
-    cnts,_ = cv2.findContours(thresh_frame.copy(),  
+    cnts,_ = cv2.findContours(threshold.copy(),  
                        cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) 
   
     for contour in cnts: 
@@ -26,8 +26,8 @@ while True:
             continue
         motion = 1
         (x, y, z, h) = cv2.boundingRect(contour) 
-        cv2.rectangle(frame, (x, y), (x + z, y + h), (0, 255, 0), 3) 
-    cv2.imshow("Color Frame", frame) 
+        cv2.rectangle(frame, (x, y), (x + z, y + h), (0, 300, 0), 5) 
+    cv2.imshow("Motion Detector", frame) 
     key = cv2.waitKey(1) 
   
 video.release() 
